@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            height: 100vh;
+            background: url("{{ url_for('static', filename='images/st6.jpg') }}") no-repeat center center/cover;
+        }
+        .result-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .exercise-container {
+            margin-top: 30px;
+        }
+        .exercise {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+        }
+        .exercise img {
+            width: 200px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-right: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .exercise img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        .exercise-description {
+            max-width: 550px;
+        }
+        .exercise-description h3 {
+            margin: 0;
+            font-size: 20px;
+            color: #333;
+        }
+        .exercise-description p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #666;
+        }
+        .button-group {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .home-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .home-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="result-container">
+        
+        <h1>Your overall sentiment is: {{ sentiment }}</h1>
+
+        {% if sentiment == 'Positive' %}
+        <div class="exercise-container">
+            <h2>Yoga Exercises for Positive Mood</h2>
+            <div class="exercise">
+                <img src="{{ url_for('static', filename='images/suryaNamaskar_new.jpg') }}" alt="Surya Namaskar" onclick="window.location.href='https://youtu.be/QFhgghL3vGM?feature=shared'" />
+                <div class="exercise-description">
+                    <h3>Surya Namaskar (Sun Salutation)</h3>
+                    <p>Boosts energy, improves flexibility, and enhances focus.</p>
+                </div>
+            </div>
+            <div class="exercise">
+                <img src="{{ url_for('static', filename='images/warrior1.jpg') }}" alt="Virabhadrasana" onclick="window.location.href='https://youtu.be/kkGY3xBnaGc?feature=shared'" />
+                <div class="exercise-description">
+                    <h3>Virabhadrasana (Warrior Pose)</h3>
+                    <p>Strengthens legs and core while improving balance.</p>
+                </div>
+            </div>
+            <div class="exercise">
+                <img src="{{ url_for('static', filename='images/tree_pose.png') }}" alt="Vrksasana" onclick="window.location.href='https://youtu.be/fIF016JROiA?feature=shared'" />
+                <div class="exercise-description">
+                    <h3>Vrksasana (Tree Pose)</h3>
+                    <p>Improves concentration and stability, calms the mind.</p>
+                </div>
+            </div>
+            <div class="exercise">
+                <img src="{{ url_for('static', filename='images/Bhujangasana.jpg') }}" alt="Bhujangasana" onclick="window.location.href='https://youtu.be/fOdrW7nf9gw?feature=shared'" />
+                <div class="exercise-description">
+                    <h3>Bhujangasana (Cobra Pose)</h3>
+                    <p>Strengthens the spine, stretches the chest, and improves posture.</p>
+                </div>
+            </div>
+        </div>
+        {% elif sentiment == 'Neutral' %}
+        <div class="exercise-container">
+            <h2>Yoga Exercises for Neutral Mood</h2>
+            <div class="exercise">
+                <img src="{{ url_for('static', filename='images/Marjaryasana.jpg') }}" alt="Marjaryasana" onclick="window.location.href='https://youtu.be/fcnv4gyMzf8?feature=shared'" />
+                <div class="exercise-description">
+                    <h3>Marjaryasana (Cat Pose)</h3>
+                    <p>Gentle stretches improve spinal flexibility and relaxation.</p>
+                </div>
+            </div>
+            <div class="exercise">
+                <img src="{{ url_for('static', filename='images/Balasana.jpg') }}" alt="Balasana" onclick="window.location.href='https://youtu.be/2MJGg-dUKh0?feature=shared'" />
+                <div class="exercise-description">
+                    <h3>Balasana (Child's Pose)</h3>
+                    <p>Relieves tension in the back and shoulders; calming for the mind.</p>
+                </div>
+            </div>
+            <div class="exercise">
+                <img src="{{ url_for('static', filename='images/Savasana.jpg') }}" alt="Savasana" onclick="window.location.href='https://youtu.be/Mc-38vuwE1Y?feature=shared'" />
+                <div class="exercise-description">
+                    <h3>Savasana (Corpse Pose)</h3>
+                    <p>Promotes relaxation, reduces stress, and rejuvenates the body.</p>
+                </div>
+            </div>
+            <div class="exercise">
+                <img src="{{ url_for('static', filename='images/bound_angle_pose.jpg') }}" alt="Bound Angle Pose" onclick="window.location.href='https://youtu.be/VNx6l5RmJhQ?feature=shared'" />
+                <div class="exercise-description">
+                    <h3>Supta Buddha Konasana</h3>
+                    <p>Opens the hips and groin, promoting relaxation.</p>
+                </div>
+            </div>
+        </div>
+        {% elif sentiment == 'Negative' %}
+        <div class="exercise-container">
+            <h2>Yoga Exercises for Negative Mood</h2>
+            <div class="exercise">
+                <img src="{{ url_for('static', filename='images/pigeon_pose.jpg') }}" alt="Pada Kapotasana" onclick="window.location.href='https://youtube.com/shorts/KUclDkITsS8?feature=shared'" />
+                <div class="exercise-description">
+                    <h3>Pada Kapotasana (Pigeon Pose)</h3>
+                    <p>Relieves stress and opens tight hips, releasing stored tension.</p>
+                </div>
+            </div>
+            <div class="exercise">
+                <img src="{{ url_for('static', filename='images/standing_bend.webp') }}" alt="Uttanasana" onclick="window.location.href='https://youtu.be/WklJNYaayP8?feature=shared'" />
+                <div class="exercise-description">
+                    <h3>Uttanasana (Standing Forward Bend)</h3>
+                    <p>Calms the nervous system and reduces fatigue.</p>
+                </div>
+            </div>
+            <div class="exercise">
+                <img src="{{ url_for('static', filename='images/legs_up_wall.jpg') }}" alt="Viparita Karani" onclick="window.location.href='https://youtu.be/TzahhHZvOks?feature=shared'" />
+                <div class="exercise-description">
+                    <h3>Viparita Karani (Legs Up the Wall)</h3>
+                    <p>Reduces stress and improves circulation to the brain.</p>
+                </div>
+            </div>
+            <div class="exercise">
+                <img src="{{ url_for('static', filename='images/meditation.jpg') }}" alt="Meditation" onclick="window.location.href='https://youtu.be/DulNz2CkoHI?feature=shared'" />
+                <div class="exercise-description">
+                    <h3>Meditation</h3>
+                    <p>Soothes the mind, fostering clarity and emotional balance.</p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="button-group">
+            <button type="button" onclick="window.location.href='{{ url_for('home') }}'" class="home-button">Home</button>
+        </div>
+    </div>
+</body>
+</html>
