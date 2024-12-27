@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            height: 100vh;
+            background: url("{{ url_for('static', filename='images/st6.jpg') }}") no-repeat center center/cover;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        input[type="file"] {
+            display: block;
+            margin: 20px auto;
+        }
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+        }
+        button:disabled {
+            background-color: #d3d3d3;
+            cursor: not-allowed;
+        }
+        button.enabled {
+            background-color: #007bff;
+            color: white;
+            border: 1px solid lightblue;
+        }
+        button.back {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+        }
+        button.skip {
+            background-color: #e74c3c;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Upload your selfie with your natural expression. No fake smiles or altered expressions</h2>
+        <form method="POST" enctype="multipart/form-data" id="faceSurveyForm">
+            <input type="file" name="file" id="fileInput" accept="image/*">
+            <div class="button-group">
+                <button type="button" class="back" onclick="window.location.href='{{ url_for('survey2') }}'">Back</button>
+                <button type="submit" id="nextButton" class="enabled" disabled>Next</button>
+                <button type="button" class="skip" onclick="window.location.href='{{ url_for('results') }}'">Skip</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const nextButton = document.getElementById('nextButton');
+
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length > 0) {
+                nextButton.disabled = false;
+                nextButton.classList.add('enabled');
+            } else {
+                nextButton.disabled = true;
+                nextButton.classList.remove('enabled');
+            }
+        });
+    </script>
+</body>
+</html>

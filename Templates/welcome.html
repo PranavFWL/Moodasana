@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moodasana</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url("{{ url_for('static', filename='images/st6.jpg') }}") no-repeat center center/cover;
+            position: relative;
+        }
+        /* Overlay to improve readability */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+        /* Main Container */
+        .container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            background: white;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+        }
+        /* Header */
+        h1 {
+            font-size: 2.5rem;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        /* Subtitle */
+        p {
+            font-size: 1rem;
+            margin-bottom: 30px;
+            color: #555;
+        }
+        /* Buttons */
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .start {
+            background-color: #007bff;
+            color: white;
+        }
+        .start:hover {
+            background-color: #0056b3;
+        }
+        .start:active {
+            transform: scale(0.95);
+        }
+        .skip {
+            background-color: #e74c3c;
+            color: white;
+        }
+        .skip:hover {
+            background-color: #c0392b;
+        }
+        .skip:active {
+            transform: scale(0.95);
+        }
+        /* Chatbot Icon */
+        .chat-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 10; /* Ensure above all other elements */
+        }
+        .chat-icon:hover {
+            background-color: #0056b3;
+        }
+        /* Chatbot Iframe */
+        .chat-iframe {
+            display: none; /* Initially hidden */
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 400px;
+            height: 500px;
+            border: none;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            z-index: 10;
+            background: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Overlay -->
+    <div class="overlay"></div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Moodasana</h1>
+        <h3>Your personalized Yoga guide</h3>
+        <p>Take a short survey to personalize your yoga experience.</p>
+        <div class="button-group">
+            <a href="/survey1"><button class="start">Start</button></a>
+            <a href="/results"><button class="skip">Skip the survey</button></a>
+        </div>
+    </div>
+
+    <!-- Chatbot Icon -->
+    <div class="chat-icon" onclick="toggleChat()">💬</div>
+
+    <!-- Chatbot Iframe -->
+    <iframe
+        id="chatIframe"
+        class="chat-iframe"
+        src="https://www.chatbase.co/chatbot-iframe/LxVMeCX9ZgDA-ROmSPwEt">
+    </iframe>
+
+    <script>
+        // Function to toggle chatbot visibility
+        function toggleChat() {
+            const chatIframe = document.getElementById("chatIframe");
+            if (chatIframe.style.display === "none" || !chatIframe.style.display) {
+                chatIframe.style.display = "block";
+            } else {
+                chatIframe.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>

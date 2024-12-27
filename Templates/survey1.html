@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            height: 100vh;
+            background: url("{{ url_for('static', filename='images/st6.jpg') }}") no-repeat center center/cover;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .options {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+        }
+        .options label {
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+        }
+        button:disabled {
+            background-color: #d3d3d3;
+            cursor: not-allowed;
+        }
+        button.enabled {
+            background-color: #007bff;
+            color: white;
+            border: 1px solid lightblue;
+        }
+        button.back {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+        }
+        button.skip {
+            background-color: #e74c3c;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <form method="POST" id="surveyForm">
+            <div class="question">
+                <label>1. How do you feel about your energy levels today?</label>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="-2"> 😢</label>
+                    <label><input type="radio" name="q1" value="-1"> 😔</label>
+                    <label><input type="radio" name="q1" value="0"> 😐</label>
+                    <label><input type="radio" name="q1" value="1"> 🙂</label>
+                    <label><input type="radio" name="q1" value="2"> 😃</label>
+                </div>
+            </div>
+            <div class="question">
+                <label>2. How was your sleep last night?</label>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="-2"> 😢</label>
+                    <label><input type="radio" name="q2" value="-1"> 😔</label>
+                    <label><input type="radio" name="q2" value="0"> 😐</label>
+                    <label><input type="radio" name="q2" value="1"> 🙂</label>
+                    <label><input type="radio" name="q2" value="2"> 😃</label>
+                </div>
+            </div>
+            <!-- Repeat similar structure for all six questions -->
+            <div class="question">
+                <label>3. Do you optimestic about future?. </label>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="-2"> 😢</label>
+                    <label><input type="radio" name="q3" value="-1"> 😔</label>
+                    <label><input type="radio" name="q3" value="0"> 😐</label>
+                    <label><input type="radio" name="q3" value="1"> 🙂</label>
+                    <label><input type="radio" name="q3" value="2"> 😃</label>
+                </div>
+            </div>
+
+            <div class="question">
+                <label>4. How satisfied are you with your social interactions recently?</label>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="-2"> 😢</label>
+                    <label><input type="radio" name="q4" value="-1"> 😔</label>
+                    <label><input type="radio" name="q4" value="0"> 😐</label>
+                    <label><input type="radio" name="q4" value="1"> 🙂</label>
+                    <label><input type="radio" name="q4" value="2"> 😃</label>
+                </div>
+            </div>
+
+            <div class="question">
+                <label>5. How well have you been able to focus or concentrate?</label>
+                <div class="options">
+                    <label><input type="radio" name="q5" value="-2"> 😢</label>
+                    <label><input type="radio" name="q5" value="-1"> 😔</label>
+                    <label><input type="radio" name="q5" value="0"> 😐</label>
+                    <label><input type="radio" name="q5" value="1"> 🙂</label>
+                    <label><input type="radio" name="q5" value="2"> 😃</label>
+                </div>
+            </div>
+
+
+            <div class="button-group">
+                <button type="button" class="back" onclick="window.location.href='{{ url_for('home') }}'">Back</button><!-- noqa -->
+                <button type="submit" id="submitButton" class="enabled" disabled>Submit</button>
+                <button type="button" class="skip" onclick="window.location.href='{{ url_for('survey2') }}'">Skip</button><!-- noqa -->
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Enable Submit button when all questions are answered
+        document.addEventListener("DOMContentLoaded", () => {
+            const options = document.querySelectorAll("input[type='radio']");
+            const submitButton = document.getElementById("submitButton");
+
+            const checkAllAnswered = () => {
+                const questions = [...document.querySelectorAll(".question")];
+                const allAnswered = questions.every((question) => {
+                    const inputs = question.querySelectorAll("input[type='radio']");
+                    return [...inputs].some(input => input.checked);
+                });
+                submitButton.disabled = !allAnswered; // Enable only if all questions answered
+                if (allAnswered) {
+                    submitButton.classList.add('enabled');
+                } else {
+                    submitButton.classList.remove('enabled');
+                }
+            };
+
+            options.forEach((option) => {
+                option.addEventListener("change", checkAllAnswered);
+            });
+
+            checkAllAnswered(); // Initial check
+        });
+    </script>
+</body>
+</html>
